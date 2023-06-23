@@ -20,5 +20,4 @@ public class order {
     private String customerid;
     private String productid;
     private LocalDateTime createdDate;
-
 }
