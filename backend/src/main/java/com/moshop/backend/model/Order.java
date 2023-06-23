@@ -1,4 +1,4 @@
-package model;
+package com.moshop.backend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class order {
+public class Order {
     @Id
     private String orderid;
     private String customerid;

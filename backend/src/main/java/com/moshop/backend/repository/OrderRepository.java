@@ -1,4 +1,4 @@
-package repository;
+package com.moshop.backend.repository;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
