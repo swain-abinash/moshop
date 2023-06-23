@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class order {
-
     @Id
     private String orderid;
     private String customerid;
