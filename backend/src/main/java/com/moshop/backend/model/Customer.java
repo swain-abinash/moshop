@@ -24,5 +24,4 @@ public class Customer {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private boolean isActive;
-
 }
