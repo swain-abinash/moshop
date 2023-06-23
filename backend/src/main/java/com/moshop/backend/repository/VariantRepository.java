@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface variantRepository extends MongoRepository<Variant,String> {
+public interface VariantRepository extends MongoRepository<Variant,String> {
 
 }
