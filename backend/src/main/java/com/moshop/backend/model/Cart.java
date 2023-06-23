@@ -17,11 +17,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Cart {
     @Id
-   private String cartId;
-  private   String customerId;
-   private String productId;
-   private LocalDateTime createdDate;
-    private  boolean isActive;
-
-
+    private String cartId;
+    private String customerId;
+    private String productId;
+    private LocalDateTime createdDate;
+    private boolean isActive;
 }
