@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Document
-
 public class Product {
     @Id
     private String productId;
