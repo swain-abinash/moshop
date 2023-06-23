@@ -25,5 +25,4 @@ public class Product {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private boolean isActive;
-
 }
