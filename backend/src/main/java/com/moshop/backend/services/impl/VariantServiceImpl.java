@@ -18,8 +18,7 @@ public class VariantServiceImpl implements VariantService {
     }
     @Override
     public List<Variant> getVariants() {
-        var getvariant = variantRepository.findAll();
-        return getvariant;
+        return variantRepository.findAll();
     }
     @Override
     public Optional<Variant> getVariant(String id) {
