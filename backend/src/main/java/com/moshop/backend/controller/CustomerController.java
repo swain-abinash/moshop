@@ -45,7 +45,7 @@ public class CustomerController {
     }
 
     @GetMapping("/active")
-    public List<Customer> getActiveProducts(){
+    public List<Customer> getActiveCustomer(){
         return customerServiceImpl.getActiveCustomer();
     }
 }
