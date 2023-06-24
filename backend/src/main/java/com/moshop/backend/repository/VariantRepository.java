@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VariantRepository extends MongoRepository<Variant,String> {
+public interface VariantRepository extends MongoRepository<Variant, String> {
     List<Variant> findByAllIsActive(boolean isActive);
+
     void delete(boolean isActive);
 }
