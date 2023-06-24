@@ -3,18 +3,20 @@ package com.moshop.backend.controller;
 import com.moshop.backend.model.Order;
 import com.moshop.backend.services.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/api/v1/order")
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/{customerId}")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> createOrder(@PathVariable String customerId, @RequestBody Order order){
         orderService.createOrder(customerId, order);
         return ResponseEntity.ok().build();
