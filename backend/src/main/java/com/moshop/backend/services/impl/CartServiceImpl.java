@@ -6,6 +6,7 @@ import com.moshop.backend.services.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +14,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
+
     @Override
     public void createCart(String customerId, Cart cart) {
-        cartRepository.save(cart);
+        var currentTime = LocalDateTime.now();
+
+        cart.setCreatedDate(currentTime);
+        cart.setUpdatedDate(currentTime);
+        cart.setCustomerId(customerId);
+
+        cartRepository.insert(cart);
     }
 
     @Override
@@ -24,10 +32,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Optional<Cart> getCarts(String customerId) {
+    public List<Cart> getCarts(String customerId) {
         return cartRepository.findAllByCustomerId(customerId);
     }
-
 
     @Override
     public Cart getCart(String cartId) {
@@ -36,26 +43,26 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart getCart(String cartId, String customerId) {
-        return null;
+        return cartRepository.findByCartIdAndCustomerId(cartId, customerId);
     }
 
     @Override
     public void deleteCart(String cartId) {
-     cartRepository.deleteById(cartId);
-    }
+        Cart cart = cartRepository.findById(cartId).orElseThrow();
 
-    @Override
-    public void updateCart(String customerId, Cart cart) {
+        cart.setActive(false);
+        cart.setUpdatedDate(LocalDateTime.now());
 
+        cartRepository.save(cart);
     }
 
     @Override
     public long countAll() {
-        return 0;
+        return cartRepository.count();
     }
 
     @Override
     public long countAll(String customerId) {
-        return 0;
+        return cartRepository.countByCustomerId(customerId);
     }
 }

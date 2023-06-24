@@ -21,5 +21,6 @@ public class Cart {
     private String customerId;
     private String productId;
     private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
     private boolean isActive;
 }
