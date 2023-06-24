@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 @Builder
 public class Order {
     @Id
-    private String orderid;
-    private String customerid;
-    private String productid;
+    private String orderId;
+    private String customerId;
+    private String productId;
     private LocalDateTime createdDate;
 }
