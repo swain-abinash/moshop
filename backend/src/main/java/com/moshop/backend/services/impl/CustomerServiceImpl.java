@@ -20,6 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setCreatedDate(LocalDateTime.now());
         customer.setUpdatedDate(LocalDateTime.now());
         customer.setActive(true);
+
         customerRepository.insert(customer);
     }
 
