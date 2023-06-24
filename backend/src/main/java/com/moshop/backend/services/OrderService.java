@@ -4,7 +4,6 @@ import com.moshop.backend.model.Order;
 
 import java.util.List;
 
-
 public interface OrderService {
 
     /**
