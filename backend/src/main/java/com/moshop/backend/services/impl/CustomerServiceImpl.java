@@ -34,8 +34,10 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteCustomer(String customerId) {
         var optionalCustomer = getCustomer(customerId);
         var customer = optionalCustomer.get();
+
         customer.setActive(false);
         customer.setUpdatedDate(LocalDateTime.now());
+
         customerRepository.save(customer);
     }
 
@@ -43,11 +45,13 @@ public class CustomerServiceImpl implements CustomerService {
     public void updateCustomer(String customerId, Customer customer) {
         var optionalCustomer = getCustomer(customerId);
         var updateCustomer = optionalCustomer.get();
+
         updateCustomer.setCustomerName(customer.getCustomerName());
         updateCustomer.setCustomerAddress(customer.getCustomerAddress());
         updateCustomer.setCustomerEmail(customer.getCustomerEmail());
         updateCustomer.setCustomerNumber(customer.getCustomerNumber());
         updateCustomer.setUpdatedDate(LocalDateTime.now());
+        
         customerRepository.save(updateCustomer);
     }
 
