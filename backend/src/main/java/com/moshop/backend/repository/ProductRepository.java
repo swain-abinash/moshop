@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends MongoRepository<Product, String> {
     List<Product> findAllByIsActiveProduct(boolean isActive);
+    
     void delete(boolean isActive);
 }
