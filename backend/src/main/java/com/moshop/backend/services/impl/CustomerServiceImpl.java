@@ -17,6 +17,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void createCustomer(Customer customer) {
+        customer.setCreatedDate(LocalDateTime.now());
+        customer.setUpdatedDate(LocalDateTime.now());
         customerRepository.insert(customer);
     }
 
@@ -56,7 +58,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-
     public long countAll() {
         return customerRepository.count();
     }
