@@ -53,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
         updateCustomer.setCustomerEmail(customer.getCustomerEmail());
         updateCustomer.setCustomerNumber(customer.getCustomerNumber());
         updateCustomer.setUpdatedDate(LocalDateTime.now());
-        
+
         customerRepository.save(updateCustomer);
     }
 
@@ -69,6 +69,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<Customer> customerLogin(String email, String password) {
-        return customerRepository.findByEmailAndPassword(email, password);
+        return customerRepository.findByCustomerEmailAndCustomerPassword(email, password);
     }
 }
