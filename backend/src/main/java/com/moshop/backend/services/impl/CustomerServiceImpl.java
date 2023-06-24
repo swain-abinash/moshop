@@ -6,6 +6,7 @@ import com.moshop.backend.services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,18 +32,29 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(String customerId) {
-        var customer = getCustomer(customerId);
-    }
-
-    @Override
-    public void updateCustomer(String customerId, Customer customer) {
+        var optionalCustomer = getCustomer(customerId);
+        var customer = optionalCustomer.get();
+        customer.setActive(false);
+        customer.setUpdatedDate(LocalDateTime.now());
         customerRepository.save(customer);
     }
 
     @Override
+    public void updateCustomer(String customerId, Customer customer) {
+        var optionalCustomer = getCustomer(customerId);
+        var updateCustomer = optionalCustomer.get();
+        updateCustomer.setCustomerName(customer.getCustomerName());
+        updateCustomer.setCustomerAddress(customer.getCustomerAddress());
+        updateCustomer.setCustomerEmail(customer.getCustomerEmail());
+        updateCustomer.setCustomerNumber(customer.getCustomerNumber());
+        updateCustomer.setUpdatedDate(LocalDateTime.now());
+        customerRepository.save(updateCustomer);
+    }
+
+    @Override
+
     public long countAll() {
-        var count = customerRepository.count();
-        return count;
+        return customerRepository.count();
     }
 
     @Override
@@ -52,6 +64,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<Customer> customerLogin(String email, String password) {
-        return customerRepository.findByEmailAndPassword(email,password);
+        return customerRepository.findByEmailAndPassword(email, password);
     }
 }
