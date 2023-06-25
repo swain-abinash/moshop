@@ -3,53 +3,72 @@ package com.moshop.backend.controller;
 import com.moshop.backend.model.Cart;
 import com.moshop.backend.services.impl.CartServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
 public class CartController {
     private final CartServiceImpl cartServiceImpl;
 
+
     @PostMapping("/{customerId}")
-    public void createCart(@PathVariable String customerId, @RequestBody Cart cart) {
+    public ResponseEntity<Void> createCart(@PathVariable String customerId, @RequestBody Cart cart) {
         cartServiceImpl.createCart(customerId, cart);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping
-    public List<Cart> getCarts() {
-        return cartServiceImpl.getCarts();
+    public ResponseEntity<List<Cart>> getCarts() {
+        List<Cart> carts = cartServiceImpl.getCarts();
+        return ResponseEntity.status(HttpStatus.OK).body(carts);
     }
 
+
     @GetMapping("/{customerId}")
-    public List<Cart> getCarts(@PathVariable String customerId) {
-        return cartServiceImpl.getCarts(customerId);
+    public ResponseEntity<List<Cart>> getCarts(@PathVariable String customerId) {
+        List<Cart> carts = cartServiceImpl.getCarts(customerId);
+        return ResponseEntity.status(HttpStatus.OK).body(carts);
     }
 
     @GetMapping("/{cartId}")
-    public Cart getCart(@PathVariable String cartId) {
-        return cartServiceImpl.getCart(cartId);
+    public ResponseEntity<Cart> getCart(@PathVariable String cartId) {
+        Cart cart = cartServiceImpl.getCart(cartId);
+        if (cart != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(cart);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @GetMapping("/{cartId}/{customerId}")
-    public Cart getCart(@PathVariable String cartId, @PathVariable String customerId) {
-        return cartServiceImpl.getCart(cartId, customerId);
+    public ResponseEntity<Cart> getCart(@PathVariable String cartId, @PathVariable String customerId) {
+        Cart cart = cartServiceImpl.getCart(cartId, customerId);
+        if (cart != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(cart);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{cartId}")
-    public void deleteCart(@PathVariable String cartId) {
+    public ResponseEntity<Void> deleteCart(@PathVariable String cartId) {
         cartServiceImpl.deleteCart(cartId);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-
     @GetMapping("/count")
-    public long countAll() {
-        return cartServiceImpl.countAll();
+    public ResponseEntity<Long> countAll() {
+        long count = cartServiceImpl.countAll();
+        return ResponseEntity.status(HttpStatus.OK).body(count);
     }
 
     @GetMapping("/count/{customerId}")
-    public long countAll(@PathVariable String customerId) {
-        return cartServiceImpl.countAll(customerId);
+    public ResponseEntity<Long> countAll(@PathVariable String customerId) {
+        long count = cartServiceImpl.countAll(customerId);
+        return ResponseEntity.status(HttpStatus.OK).body(count);
     }
 }
