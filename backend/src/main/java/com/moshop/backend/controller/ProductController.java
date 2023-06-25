@@ -1,52 +1,74 @@
 package com.moshop.backend.controller;
 
 import com.moshop.backend.model.Product;
-import com.moshop.backend.services.ProductService;
 import com.moshop.backend.services.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/v1/product")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductServiceImpl productServiceImpl;
 
     @PostMapping
-    public void addProduct(@RequestBody Product product) {
+    public ResponseEntity<Void> addProduct(@RequestBody Product product) {
            productServiceImpl.addProduct(product);
+           return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<Product> getProducts() {
-        return productServiceImpl.getProducts();
+    public  ResponseEntity<List<Product>> getProducts() {
+        var products = productServiceImpl.getProducts();
+
+        if (products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(products);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(products);
+        }
     }
 
     @GetMapping("/{productId}")
-    public Optional<Product> getProduct(@PathVariable String productId) {
-        return productServiceImpl.getProduct(productId);
+    public ResponseEntity<Product> getProduct(@PathVariable String productId) {
+        var product = productServiceImpl.getProduct(productId);
+
+        if (product.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(product.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/{productId}")
-    public void deleteProduct(@PathVariable String productId) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable String productId) {
         productServiceImpl.deleteProduct(productId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("/{productId}")
-    public void updateProduct(@PathVariable String productId, @RequestBody Product product) {
+    public ResponseEntity<Void> updateProduct(@PathVariable String productId, @RequestBody Product product) {
         productServiceImpl.updateProduct(productId, product);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/count")
-    public long countAll() {
-        return productServiceImpl.countAll();
+    public ResponseEntity<Long> countAll() {
+        var count = productServiceImpl.countAll();
+        return ResponseEntity.status(HttpStatus.OK).body(count);
     }
 
     @GetMapping("/active")
-    public List<Product> getActiveProduct() {
-        return productServiceImpl.getActiveProducts();
+    public ResponseEntity<List<Product>> getActiveProduct() {
+        var products = productServiceImpl.getActiveProducts();
+
+        if (!products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(products);
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 }
