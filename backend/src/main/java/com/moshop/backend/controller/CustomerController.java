@@ -12,44 +12,66 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
 public class CustomerController {
     private CustomerServiceImpl customerServiceImpl;
 
     @PostMapping
-    public void createCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Void> createCustomer(@RequestBody Customer customer) {
         customerServiceImpl.createCustomer(customer);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<Customer> getCustomers() {
-        return customerServiceImpl.getCustomers();
+    public ResponseEntity<List<Customer>> getCustomers() {
+        var customers = customerServiceImpl.getCustomers();
+
+        if (customers.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(customers);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(customers);
+        }
     }
 
     @GetMapping("/{customerId}")
-    public Optional<Customer> getCustomer(@PathVariable String customerId) {
-        return customerServiceImpl.getCustomer(customerId);
+    public ResponseEntity<Customer> getCustomer(@PathVariable String customerId) {
+        var customer = customerServiceImpl.getCustomer(customerId);
+
+        if (customer.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(customer.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/{customerId}")
-    public void deleteCustomer(@PathVariable String customerId) {
+    public ResponseEntity<Void> deleteCustomer(@PathVariable String customerId) {
         customerServiceImpl.deleteCustomer(customerId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("/{customerId}")
-    public void updateCustomer(@PathVariable String customerId, @RequestBody Customer customer) {
+    public ResponseEntity<Void> updateCustomer(@PathVariable String customerId, @RequestBody Customer customer) {
         customerServiceImpl.updateCustomer(customerId, customer);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/count")
-    public long countAll() {
-        return customerServiceImpl.countAll();
+    public ResponseEntity<Long> countAll() {
+        var count = customerServiceImpl.countAll();
+        return ResponseEntity.status(HttpStatus.OK).body(count);
     }
 
     @GetMapping("/active")
-    public List<Customer> getActiveCustomer() {
-        return customerServiceImpl.getActiveCustomer();
+    public ResponseEntity<List<Customer>> getActiveCustomer() {
+        var customers = customerServiceImpl.getActiveCustomer();
+
+        if (!customers.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(customers);
+        }else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     @GetMapping("/login")
@@ -61,7 +83,7 @@ public class CustomerController {
 
         if (optionalCustomer.isPresent()) {
             var customer = optionalCustomer.get();
-            return ResponseEntity.ok(customer);
+            return ResponseEntity.status(HttpStatus.OK).body(customer);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
