@@ -1,6 +1,6 @@
 package com.moshop.backend.services.impl;
 
-import com.moshop.backend.model.Customer;
+import com.moshop.backend.model.entity.Customer;
 import com.moshop.backend.repository.CustomerRepository;
 import com.moshop.backend.services.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> getActiveCustomer() {
-        return customerRepository.findByIsActiveTrue();
+        return customerRepository.findAllByIsActive(true);
     }
 
     @Override

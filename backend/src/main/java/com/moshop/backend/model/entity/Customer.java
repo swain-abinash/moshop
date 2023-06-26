@@ -1,4 +1,4 @@
-package com.moshop.backend.model;
+package com.moshop.backend.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,21 +6,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Document
-public class Product {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
+public class Customer {
     @Id
-    private String productId;
-    private String productName;
-    private double productPrice;
-    private String productDescription;
-    private String productImage;
-    private String variantId;
+    private String customerId;
+    private String customerName;
+    private String customerAddress;
+    private String customerEmail;
+    private String customerNumber;
+    private String customerPassword;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private boolean isActive;

@@ -1,6 +1,6 @@
 package com.moshop.backend.services.impl;
 
-import com.moshop.backend.model.Cart;
+import com.moshop.backend.model.entity.Cart;
 import com.moshop.backend.repository.CartRepository;
 import com.moshop.backend.services.CartService;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

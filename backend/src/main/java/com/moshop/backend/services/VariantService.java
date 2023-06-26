@@ -1,6 +1,6 @@
 package com.moshop.backend.services;
 
-import com.moshop.backend.model.Variant;
+import com.moshop.backend.model.entity.Variant;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +9,7 @@ import java.util.Optional;
  * <h1>save Variant in to DB</h1>
  * <p>this method take Variant as parameter and save it into database.</p>
  *
- * @Param com.moshop.backend.model.Variant
+ * @Param com.moshop.backend.model.entity.Variant
  */
 
 public interface VariantService {

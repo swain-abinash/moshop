@@ -1,6 +1,6 @@
 package com.moshop.backend.services;
 
-import com.moshop.backend.model.Customer;
+import com.moshop.backend.model.entity.Customer;
 
 import java.util.List;
 import java.util.Optional;

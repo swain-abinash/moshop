@@ -1,4 +1,4 @@
-package com.moshop.backend.model;
+package com.moshop.backend.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,21 +7,19 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Document
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Data
-public class Customer {
+public class Cart {
     @Id
+    private String cartId;
     private String customerId;
-    private String customerName;
-    private String customerAddress;
-    private String customerEmail;
-    private String customerNumber;
-    private String customerPassword;
+    private String productId;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private boolean isActive;
