@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface CustomerRepository extends MongoRepository <Customer, String> {
     List<Customer> findByIsActiveTrue();
-    Optional<Customer> findByEmailAndPassword(String email, String password);
+    Optional<Customer> findByCustomerEmailAndCustomerPassword(String email, String password);
 }

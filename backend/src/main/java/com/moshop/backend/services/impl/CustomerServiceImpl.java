@@ -17,6 +17,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void createCustomer(Customer customer) {
+        customer.setCreatedDate(LocalDateTime.now());
+        customer.setUpdatedDate(LocalDateTime.now());
+        customer.setActive(true);
+
         customerRepository.insert(customer);
     }
 
@@ -51,12 +55,11 @@ public class CustomerServiceImpl implements CustomerService {
         updateCustomer.setCustomerEmail(customer.getCustomerEmail());
         updateCustomer.setCustomerNumber(customer.getCustomerNumber());
         updateCustomer.setUpdatedDate(LocalDateTime.now());
-        
+
         customerRepository.save(updateCustomer);
     }
 
     @Override
-
     public long countAll() {
         return customerRepository.count();
     }
@@ -68,6 +71,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<Customer> customerLogin(String email, String password) {
-        return customerRepository.findByEmailAndPassword(email, password);
+        return customerRepository.findByCustomerEmailAndCustomerPassword(email, password);
     }
 }
