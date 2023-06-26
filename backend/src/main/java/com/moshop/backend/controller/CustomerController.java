@@ -1,7 +1,6 @@
 package com.moshop.backend.controller;
 
 import com.moshop.backend.model.entity.Customer;
-import com.moshop.backend.model.entity.LoginRequest;
 import com.moshop.backend.services.impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
 public class CustomerController {
-    private CustomerServiceImpl customerServiceImpl;
+    private final CustomerServiceImpl customerServiceImpl;
 
     @PostMapping
     public ResponseEntity<Void> createCustomer(@RequestBody Customer customer) {
@@ -68,17 +67,14 @@ public class CustomerController {
 
         if (!customers.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(customers);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<Customer> customerLogin(@RequestBody LoginRequest loginRequest) {
-        String email = loginRequest.getCustomerEmail();
-        String password = loginRequest.getCustomerPassword();
-
-        var optionalCustomer = customerServiceImpl.customerLogin(email, password);
+    @GetMapping("/login/{customerEmail}/{customerPassword}")
+    public ResponseEntity<Customer> customerLogin(@PathVariable String customerEmail, @PathVariable String customerPassword) {
+        var optionalCustomer = customerServiceImpl.customerLogin(customerEmail, customerPassword);
 
         if (optionalCustomer.isPresent()) {
             var customer = optionalCustomer.get();
