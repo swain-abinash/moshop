@@ -1,7 +1,6 @@
 package com.moshop.backend.services.impl;
 
 import com.moshop.backend.model.dto.ProductRequestDTO;
-import com.moshop.backend.model.dto.ProductResponseDTO;
 import com.moshop.backend.model.entity.Product;
 import com.moshop.backend.repository.ProductRepository;
 import com.moshop.backend.services.ProductService;
@@ -51,17 +50,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(String productId, Product product) {
+    public void updateProduct(String productId, ProductRequestDTO productRequestDTO) {
         var optionalProduct = getProduct(productId);
         var updateProduct = optionalProduct.get();
 
-        updateProduct.setProductName(product.getProductName());
-        updateProduct.setProductPrice(product.getProductPrice());
-        updateProduct.setProductDescription(product.getProductDescription());
-        updateProduct.setProductImage(product.getProductImage());
+        updateProduct.setProductName(productRequestDTO.getProductName());
+        updateProduct.setProductPrice(productRequestDTO.getProductPrice());
+        updateProduct.setProductDescription(productRequestDTO.getProductDescription());
+        updateProduct.setProductImage(productRequestDTO.getProductImage());
         updateProduct.setUpdatedDate(LocalDateTime.now());
 
-        productRepository.save(product);
+        productRepository.save(updateProduct);
     }
 
     @Override

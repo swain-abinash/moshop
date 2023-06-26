@@ -51,8 +51,8 @@ public class ProductController {
     }
 
     @PutMapping("/{productId}")
-    public ResponseEntity<Void> updateProduct(@PathVariable String productId, @RequestBody Product product) {
-        productServiceImpl.updateProduct(productId, product);
+    public ResponseEntity<Void> updateProduct(@PathVariable String productId, @RequestBody ProductRequestDTO productRequestDTO) {
+        productServiceImpl.updateProduct(productId, productRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

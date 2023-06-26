@@ -56,7 +56,7 @@ public interface ProductService {
      *
      * @param com.moshop.backend.model.Product
      */
-    void updateProduct(String productId, Product product);
+    void updateProduct(String productId, ProductRequestDTO productRequestDTO);
 
     /**
      * <h1>Count all products</h1>
