@@ -41,9 +41,9 @@ public interface CustomerService {
      * Updates the details of a customer with the provided customer ID.
      *
      * @param customerId The ID of the customer to update.
-     * @param customer   The updated customer object with new details.
+     * @param customerRequestDTO  The updated customer object with new details.
      */
-    void updateCustomer(String customerId, Customer customer);
+    void updateCustomer(String customerId, CustomerRequestDTO customerRequestDTO);
 
     /**
      * Counts the total number of customers in the database.

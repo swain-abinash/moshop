@@ -7,8 +7,5 @@ public class CustomerResponseDTO {
     private String customerAddress;
     private String customerEmail;
     private String customerNumber;
-    private String customerPassword;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
     private boolean isActive;
 }

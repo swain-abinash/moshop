@@ -53,16 +53,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomer(String customerId, Customer customer) {
-        var updateCustomer = getCustomer(customerId).orElseThrow();
+    public void updateCustomer(String customerId, CustomerRequestDTO customerRequestDTO) {
+        var customer = getCustomer(customerId).orElseThrow();
 
-        updateCustomer.setCustomerName(customer.getCustomerName());
-        updateCustomer.setCustomerAddress(customer.getCustomerAddress());
-        updateCustomer.setCustomerEmail(customer.getCustomerEmail());
-        updateCustomer.setCustomerNumber(customer.getCustomerNumber());
-        updateCustomer.setUpdatedDate(LocalDateTime.now());
+        customer.setCustomerName(customerRequestDTO.getCustomerName());
+        customer.setCustomerAddress(customerRequestDTO.getCustomerAddress());
+        customer.setCustomerEmail(customerRequestDTO.getCustomerEmail());
+        customer.setCustomerNumber(customerRequestDTO.getCustomerNumber());
+        customer.setCustomerPassword(customerRequestDTO.getCustomerPassword());
+        customer.setUpdatedDate(LocalDateTime.now());
 
-        customerRepository.save(updateCustomer);
+        customerRepository.save(customer);
     }
 
     @Override
