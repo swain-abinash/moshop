@@ -21,7 +21,7 @@ public class VariantController {
 
 
     @PostMapping
-    public ResponseEntity<Void> addProduct(@RequestBody Variant variant) {
+    public ResponseEntity<Void> addVariant(@RequestBody Variant variant) {
         variantServiceImpl.addVariant(variant);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -38,12 +38,12 @@ public class VariantController {
     }
 
     @GetMapping({"/variantId"})
-    public ResponseEntity<Variant> getProduct(@PathVariable String variantId) {
-        var product = variantServiceImpl.getVariant(variantId);
+    public ResponseEntity<Variant> getVariant(@PathVariable String variantId) {
+        var variant = variantServiceImpl.getVariant(variantId);
 
-        if (product.isPresent()) {
+        if (variant.isPresent()) {
             return ResponseEntity.status(HttpStatus
-                    .OK).body(product.get());
+                    .OK).body(variant.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -55,7 +55,7 @@ public class VariantController {
     }
 
     @PutMapping({"/variantId"})
-    public void updatevariant(@PathVariable String id, @RequestBody Variant variant) {
+    public void updateVariant(@PathVariable String id, @RequestBody Variant variant) {
         variantServiceImpl.updateVariant(id, variant);
     }
 
