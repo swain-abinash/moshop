@@ -1,7 +1,6 @@
 package com.moshop.backend.repository;
 
-import com.moshop.backend.model.Customer;
-import com.moshop.backend.model.Order;
+import com.moshop.backend.model.entity.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.moshop.backend.model;
+package com.moshop.backend.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

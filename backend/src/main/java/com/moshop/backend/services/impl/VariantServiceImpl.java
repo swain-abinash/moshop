@@ -1,6 +1,6 @@
 package com.moshop.backend.services.impl;
 
-import com.moshop.backend.model.Variant;
+import com.moshop.backend.model.entity.Variant;
 import com.moshop.backend.repository.VariantRepository;
 import com.moshop.backend.services.VariantService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,10 @@ public class VariantServiceImpl implements VariantService {
 
     @Override
     public void deleteVariant(String Variant) {
-        variantRepository.delete(false);
+        var variant = getVariant(Variant).orElseThrow();
+        variant.setActive(false);
+
+        variantRepository.save(variant);
     }
 
     @Override
@@ -46,6 +49,6 @@ public class VariantServiceImpl implements VariantService {
 
     @Override
     public List<Variant> getActiveVariant() {
-        return variantRepository.findByAllIsActive(true);
+        return variantRepository.findAllByIsActive(true);
     }
 }

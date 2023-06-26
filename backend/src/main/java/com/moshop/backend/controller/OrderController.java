@@ -1,6 +1,6 @@
 package com.moshop.backend.controller;
 
-import com.moshop.backend.model.Order;
+import com.moshop.backend.model.entity.Order;
 import com.moshop.backend.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

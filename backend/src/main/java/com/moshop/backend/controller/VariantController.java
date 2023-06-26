@@ -1,17 +1,13 @@
 package com.moshop.backend.controller;
 
-import com.moshop.backend.model.Variant;
-import com.moshop.backend.services.VariantService;
+import com.moshop.backend.model.entity.Variant;
 import com.moshop.backend.services.impl.VariantServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/variant")

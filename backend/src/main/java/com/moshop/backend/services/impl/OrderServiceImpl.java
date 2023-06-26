@@ -1,6 +1,6 @@
 package com.moshop.backend.services.impl;
 
-import com.moshop.backend.model.Order;
+import com.moshop.backend.model.entity.Order;
 import com.moshop.backend.repository.OrderRepository;
 import com.moshop.backend.services.OrderService;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.moshop.backend.controller;
 
-import com.moshop.backend.model.Cart;
+import com.moshop.backend.model.entity.Cart;
 import com.moshop.backend.services.impl.CartServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

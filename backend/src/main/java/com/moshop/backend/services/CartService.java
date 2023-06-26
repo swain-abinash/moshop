@@ -1,6 +1,6 @@
 package com.moshop.backend.services;
 
-import com.moshop.backend.model.Cart;
+import com.moshop.backend.model.entity.Cart;
 
 import java.util.List;
 

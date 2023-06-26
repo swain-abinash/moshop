@@ -1,7 +1,7 @@
 package com.moshop.backend.controller;
 
-import com.moshop.backend.model.Customer;
-import com.moshop.backend.model.LoginRequest;
+import com.moshop.backend.model.entity.Customer;
+import com.moshop.backend.model.entity.LoginRequest;
 import com.moshop.backend.services.impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/customer")

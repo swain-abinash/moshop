@@ -1,6 +1,6 @@
 package com.moshop.backend.services.impl;
 
-import com.moshop.backend.model.Product;
+import com.moshop.backend.model.entity.Product;
 import com.moshop.backend.repository.ProductRepository;
 import com.moshop.backend.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(String productId) {
-        productRepository.delete(false);
+        var product = getProduct(productId).orElseThrow();
+        product.setActive(false);
+
+        productRepository.save(product);
     }
 
     @Override
@@ -57,6 +60,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getActiveProducts() {
-        return productRepository.findAllByIsActiveProduct(true);
+        return productRepository.findAllByIsActive(true);
     }
 }
