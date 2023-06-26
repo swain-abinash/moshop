@@ -1,5 +1,7 @@
 package com.moshop.backend.services;
 
+import com.moshop.backend.model.dto.ProductRequestDTO;
+import com.moshop.backend.model.dto.ProductResponseDTO;
 import com.moshop.backend.model.entity.Product;
 
 import java.util.List;
@@ -14,7 +16,7 @@ public interface ProductService {
      *
      * @param com.moshop.backend.model.Product
      */
-    void addProduct(Product product);
+    void addProduct(ProductRequestDTO productRequestDTO);
 
     /**
      * <h1>Getting all products</h1>

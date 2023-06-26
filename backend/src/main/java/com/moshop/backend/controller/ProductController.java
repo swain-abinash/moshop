@@ -1,5 +1,6 @@
 package com.moshop.backend.controller;
 
+import com.moshop.backend.model.dto.ProductRequestDTO;
 import com.moshop.backend.model.entity.Product;
 import com.moshop.backend.services.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,8 @@ public class ProductController {
     private final ProductServiceImpl productServiceImpl;
 
     @PostMapping
-    public ResponseEntity<Void> addProduct(@RequestBody Product product) {
-           productServiceImpl.addProduct(product);
+    public ResponseEntity<Void> addProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+           productServiceImpl.addProduct(productRequestDTO);
            return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
