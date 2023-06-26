@@ -1,5 +1,6 @@
 package com.moshop.backend.controller;
 
+import com.moshop.backend.model.dto.CustomerRequestDTO;
 import com.moshop.backend.model.entity.Customer;
 import com.moshop.backend.model.entity.LoginRequest;
 import com.moshop.backend.services.impl.CustomerServiceImpl;
@@ -14,11 +15,11 @@ import java.util.List;
 @RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
 public class CustomerController {
-    private CustomerServiceImpl customerServiceImpl;
+    private final CustomerServiceImpl customerServiceImpl;
 
     @PostMapping
-    public ResponseEntity<Void> createCustomer(@RequestBody Customer customer) {
-        customerServiceImpl.createCustomer(customer);
+    public ResponseEntity<Void> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+        customerServiceImpl.createCustomer(customerRequestDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
