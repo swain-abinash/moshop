@@ -1,5 +1,6 @@
 package com.moshop.backend.services.impl;
 
+import com.moshop.backend.model.entity.Dashboard;
 import com.moshop.backend.repository.*;
 import com.moshop.backend.services.DashboardService;
 import lombok.RequiredArgsConstructor;
@@ -15,27 +16,15 @@ public class DashboardServiceImpl implements DashboardService {
     private final OrderRepository orderRepository;
 
     @Override
-    public long totalVariants() {
-        return variantRepository.count();
-    }
+    public Dashboard countAll() {
+        var dashboard = new Dashboard();
 
-    @Override
-    public long totalProducts() {
-        return productRepository.count();
-    }
+        dashboard.setTotalVariants(variantRepository.count());
+        dashboard.setTotalProducts(productRepository.count());
+        dashboard.setTotalCustomers(customerRepository.count());
+        dashboard.setTotalCarts(cartRepository.count());
+        dashboard.setTotalOrders(orderRepository.count());
 
-    @Override
-    public long totalCustomers() {
-        return customerRepository.count();
-    }
-
-    @Override
-    public long totalCarts() {
-        return cartRepository.count();
-    }
-
-    @Override
-    public long totalOrders() {
-        return orderRepository.count();
+        return dashboard;
     }
 }
