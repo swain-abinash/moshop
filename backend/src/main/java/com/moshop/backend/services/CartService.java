@@ -12,8 +12,6 @@ public interface CartService {
      * @param customerId The ID of the customer for whom the cart is being created.
      * @param cart       The Cart object representing the cart to be created.
      */
-
-
     void createCart(String customerId, Cart cart);
 
     /**
@@ -21,7 +19,6 @@ public interface CartService {
      *
      * @return A list of Cart objects representing the available carts.
      */
-
     List<Cart> getCarts();
 
     /**
