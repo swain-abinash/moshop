@@ -6,6 +6,7 @@ import com.moshop.backend.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void updateProduct(String productId, Product product) {
+        var optionalProduct = getProduct(productId);
+        var updateProduct = optionalProduct.get();
+
+        updateProduct.setProductName(product.getProductName());
+        updateProduct.setProductPrice(product.getProductPrice());
+        updateProduct.setProductDescription(product.getProductDescription());
+        updateProduct.setProductImage(product.getProductImage());
+        updateProduct.setVariantId(product.getVariantId());
+        updateProduct.setUpdatedDate(LocalDateTime.now());
+
         productRepository.save(product);
     }
 
