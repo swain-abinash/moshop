@@ -19,7 +19,6 @@ import java.util.Optional;
 public class VariantController {
     private final VariantServiceImpl variantServiceImpl;
 
-
     @PostMapping
     public ResponseEntity<Void> addVariant(@RequestBody Variant variant) {
         variantServiceImpl.addVariant(variant);
@@ -37,7 +36,7 @@ public class VariantController {
         }
     }
 
-    @GetMapping({"/variantId"})
+    @GetMapping("{/variantId}")
     public ResponseEntity<Variant> getVariant(@PathVariable String variantId) {
         var variant = variantServiceImpl.getVariant(variantId);
 
@@ -49,12 +48,12 @@ public class VariantController {
         }
     }
 
-    @DeleteMapping({"/variantId"})
+    @DeleteMapping("{/variantId}")
     public void deleteVariant(@RequestParam String variantId) {
         variantServiceImpl.deleteVariant(variantId);
     }
 
-    @PutMapping({"/variantId"})
+    @PutMapping("{/variantId}")
     public void updateVariant(@PathVariable String id, @RequestBody Variant variant) {
         variantServiceImpl.updateVariant(id, variant);
     }
