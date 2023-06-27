@@ -1,8 +1,9 @@
 package com.moshop.backend.controller;
 
+import com.moshop.backend.model.dto.CustomerRequestDTO;
 import com.moshop.backend.model.dto.LoginRequestDTO;
-import com.moshop.backend.model.entity.Customer
-import com.moshop.backend.services.impl.CustomerServiceImpl;
+import com.moshop.backend.model.entity.Customer;
+import com.moshop.backend.services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,7 +78,7 @@ public class CustomerController {
     public ResponseEntity<Customer> customerLogin(@RequestBody LoginRequestDTO loginRequestDTO) {
         var customerEmail = loginRequestDTO.getCustomerEmail();
         var customerPassword = loginRequestDTO.getCustomerPassword();
-        var optionalCustomer = customerServiceImpl.customerLogin(customerEmail, customerPassword);
+        var optionalCustomer = customerService.customerLogin(customerEmail, customerPassword);
 
         if (optionalCustomer.isPresent()) {
             var customer = optionalCustomer.get();
