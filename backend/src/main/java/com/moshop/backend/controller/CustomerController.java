@@ -1,7 +1,9 @@
 package com.moshop.backend.controller;
 
+import com.moshop.backend.model.dto.CustomerRequestDTO;
 import com.moshop.backend.model.entity.Customer;
 import com.moshop.backend.model.entity.LoginRequest;
+import com.moshop.backend.services.CustomerService;
 import com.moshop.backend.services.impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,17 +16,17 @@ import java.util.List;
 @RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
 public class CustomerController {
-    private CustomerServiceImpl customerServiceImpl;
+    private final CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<Void> createCustomer(@RequestBody Customer customer) {
-        customerServiceImpl.createCustomer(customer);
+    public ResponseEntity<Void> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+        customerService.createCustomer(customerRequestDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Customer>> getCustomers() {
-        var customers = customerServiceImpl.getCustomers();
+        var customers = customerService.getCustomers();
 
         if (customers.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(customers);
@@ -35,7 +37,7 @@ public class CustomerController {
 
     @GetMapping("/{customerId}")
     public ResponseEntity<Customer> getCustomer(@PathVariable String customerId) {
-        var customer = customerServiceImpl.getCustomer(customerId);
+        var customer = customerService.getCustomer(customerId);
 
         if (customer.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(customer.get());
@@ -46,25 +48,25 @@ public class CustomerController {
 
     @DeleteMapping("/{customerId}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable String customerId) {
-        customerServiceImpl.deleteCustomer(customerId);
+        customerService.deleteCustomer(customerId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<Void> updateCustomer(@PathVariable String customerId, @RequestBody Customer customer) {
-        customerServiceImpl.updateCustomer(customerId, customer);
+    public ResponseEntity<Void> updateCustomer(@PathVariable String customerId, @RequestBody CustomerRequestDTO customerRequestDTO) {
+        customerService.updateCustomer(customerId, customerRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/count")
     public ResponseEntity<Long> countAll() {
-        var count = customerServiceImpl.countAll();
+        var count = customerService.countAll();
         return ResponseEntity.status(HttpStatus.OK).body(count);
     }
 
     @GetMapping("/active")
     public ResponseEntity<List<Customer>> getActiveCustomer() {
-        var customers = customerServiceImpl.getActiveCustomer();
+        var customers = customerService.getActiveCustomer();
 
         if (!customers.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(customers);
@@ -78,7 +80,7 @@ public class CustomerController {
         String email = loginRequest.getCustomerEmail();
         String password = loginRequest.getCustomerPassword();
 
-        var optionalCustomer = customerServiceImpl.customerLogin(email, password);
+        var optionalCustomer = customerService.customerLogin(email, password);
 
         if (optionalCustomer.isPresent()) {
             var customer = optionalCustomer.get();

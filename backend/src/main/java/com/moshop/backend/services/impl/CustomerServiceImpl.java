@@ -1,5 +1,6 @@
 package com.moshop.backend.services.impl;
 
+import com.moshop.backend.model.dto.CustomerRequestDTO;
 import com.moshop.backend.model.entity.Customer;
 import com.moshop.backend.repository.CustomerRepository;
 import com.moshop.backend.services.CustomerService;
@@ -16,7 +17,14 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
     @Override
-    public void createCustomer(Customer customer) {
+    public void createCustomer(CustomerRequestDTO customerRequestDTO) {
+        var customer = new Customer();
+
+        customer.setCustomerName(customerRequestDTO.getCustomerName());
+        customer.setCustomerAddress(customerRequestDTO.getCustomerAddress());
+        customer.setCustomerEmail(customerRequestDTO.getCustomerEmail());
+        customer.setCustomerNumber(customerRequestDTO.getCustomerNumber());
+        customer.setCustomerPassword(customerRequestDTO.getCustomerPassword());
         customer.setCreatedDate(LocalDateTime.now());
         customer.setUpdatedDate(LocalDateTime.now());
         customer.setActive(true);
@@ -36,8 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(String customerId) {
-        var optionalCustomer = getCustomer(customerId);
-        var customer = optionalCustomer.get();
+        var customer = getCustomer(customerId).orElseThrow();
 
         customer.setActive(false);
         customer.setUpdatedDate(LocalDateTime.now());
@@ -46,17 +53,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomer(String customerId, Customer customer) {
-        var optionalCustomer = getCustomer(customerId);
-        var updateCustomer = optionalCustomer.get();
+    public void updateCustomer(String customerId, CustomerRequestDTO customerRequestDTO) {
+        var customer = getCustomer(customerId).orElseThrow();
 
-        updateCustomer.setCustomerName(customer.getCustomerName());
-        updateCustomer.setCustomerAddress(customer.getCustomerAddress());
-        updateCustomer.setCustomerEmail(customer.getCustomerEmail());
-        updateCustomer.setCustomerNumber(customer.getCustomerNumber());
-        updateCustomer.setUpdatedDate(LocalDateTime.now());
+        customer.setCustomerName(customerRequestDTO.getCustomerName());
+        customer.setCustomerAddress(customerRequestDTO.getCustomerAddress());
+        customer.setCustomerEmail(customerRequestDTO.getCustomerEmail());
+        customer.setCustomerNumber(customerRequestDTO.getCustomerNumber());
+        customer.setCustomerPassword(customerRequestDTO.getCustomerPassword());
+        customer.setUpdatedDate(LocalDateTime.now());
 
-        customerRepository.save(updateCustomer);
+        customerRepository.save(customer);
     }
 
     @Override

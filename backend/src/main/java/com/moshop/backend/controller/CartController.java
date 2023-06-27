@@ -28,8 +28,7 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.OK).body(carts);
     }
 
-
-    @GetMapping("/{customerId}")
+    @GetMapping("/customer/{customerId}")
     public ResponseEntity<List<Cart>> getCarts(@PathVariable String customerId) {
         List<Cart> carts = cartServiceImpl.getCarts(customerId);
         return ResponseEntity.status(HttpStatus.OK).body(carts);
