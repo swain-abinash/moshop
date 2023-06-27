@@ -1,5 +1,6 @@
 package com.moshop.backend.controller;
 
+import com.moshop.backend.model.dto.OrderRequestDTO;
 import com.moshop.backend.model.entity.Order;
 import com.moshop.backend.services.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ public class OrderController {
 
     @PostMapping("/{customerId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> createOrder(@PathVariable String customerId, @RequestBody Order order){
-        orderService.createOrder(customerId, order);
+    public ResponseEntity<Void> createOrder(@PathVariable String customerId, @RequestBody OrderRequestDTO orderRequestDTO){
+        orderService.createOrder(customerId, orderRequestDTO);
         return ResponseEntity.ok().build();
     }
 

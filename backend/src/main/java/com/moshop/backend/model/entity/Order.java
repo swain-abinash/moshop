@@ -18,6 +18,6 @@ public class Order {
     @Id
     private String orderId;
     private String customerId;
-    private String productd;
+    private String productId;
     private LocalDateTime createdDate;
 }
