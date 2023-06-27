@@ -8,15 +8,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class VariantNotFoundException extends RuntimeException{
-//@ExceptionHandler(VariantNotFoundException.class)
-//public ResponseEntity<String> handleVariantNotFoundException(VariantNotFoundException ex) {
-//    String errorMessage = "Variant not found: " + ex.getMessage();
-//    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-//}
+public class VariantNotFoundException extends RuntimeException {
 
-@ExceptionHandler(Exception.class)
-    public ProblemDetail handleException(Exception exception){
-    return ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(404), "Error");
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleException(Exception exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(500), exception.getMessage());
     }
 }
