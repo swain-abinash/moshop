@@ -1,5 +1,6 @@
 package com.moshop.backend.services;
 
+import com.moshop.backend.model.dto.OrderRequestDTO;
 import com.moshop.backend.model.entity.Order;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface OrderService {
      * @param customerId The unique identifier of the customer.
      * @param order      The order to be created.
      */
-    void createOrder(String customerId, Order order);
+    void createOrder(String customerId, OrderRequestDTO orderRequestDTO);
 
     /**
      * Retrieves a list of all orders in the system.
