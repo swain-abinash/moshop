@@ -34,14 +34,14 @@ public class VariantController {
 
     @GetMapping("/{variantId}")
     public ResponseEntity<Variant> getVariant(@PathVariable String variantId) {
-        var variant = variantServiceImpl.getVariant(variantId);
+        var variant = variantServiceImpl.getVariant(variantId).orElseThrow();
 
-        if (variant.isPresent()) {
+//        if (variant.isPresent()) {
             return ResponseEntity.status(HttpStatus
-                    .OK).body(variant.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+                    .OK).body(variant);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
     }
 
     @DeleteMapping("/{variantId}")

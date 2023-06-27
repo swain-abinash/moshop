@@ -1,5 +1,6 @@
 package com.moshop.backend.services;
 
+import com.moshop.backend.model.dto.CustomerRequestDTO;
 import com.moshop.backend.model.entity.Customer;
 
 import java.util.List;
@@ -9,9 +10,9 @@ public interface CustomerService {
     /**
      * Creates a new customer with the provided details and saves it to the database.
      *
-     * @param customer The customer object containing the details of the customer to be created.
+     * @param customerRequestDTO The customer object containing the details of the customer to be created.
      */
-    void createCustomer(Customer customer);
+    void createCustomer(CustomerRequestDTO customerRequestDTO);
 
     /**
      * Retrieves a list of all customers from the database.
@@ -40,9 +41,9 @@ public interface CustomerService {
      * Updates the details of a customer with the provided customer ID.
      *
      * @param customerId The ID of the customer to update.
-     * @param customer   The updated customer object with new details.
+     * @param customerRequestDTO  The updated customer object with new details.
      */
-    void updateCustomer(String customerId, Customer customer);
+    void updateCustomer(String customerId, CustomerRequestDTO customerRequestDTO);
 
     /**
      * Counts the total number of customers in the database.

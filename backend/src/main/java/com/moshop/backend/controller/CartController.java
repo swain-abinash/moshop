@@ -1,5 +1,6 @@
 package com.moshop.backend.controller;
 
+import com.moshop.backend.model.dto.CartRequestDTO;
 import com.moshop.backend.model.entity.Cart;
 import com.moshop.backend.services.impl.CartServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ public class CartController {
 
 
     @PostMapping("/{customerId}")
-    public ResponseEntity<Void> createCart(@PathVariable String customerId, @RequestBody Cart cart) {
-        cartServiceImpl.createCart(customerId, cart);
+    public ResponseEntity<Void> createCart(@PathVariable String customerId, @RequestBody CartRequestDTO cartRequestDTO) {
+        cartServiceImpl.createCart(customerId, cartRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -28,8 +29,7 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.OK).body(carts);
     }
 
-
-    @GetMapping("/{customerId}")
+    @GetMapping("/customer/{customerId}")
     public ResponseEntity<List<Cart>> getCarts(@PathVariable String customerId) {
         List<Cart> carts = cartServiceImpl.getCarts(customerId);
         return ResponseEntity.status(HttpStatus.OK).body(carts);

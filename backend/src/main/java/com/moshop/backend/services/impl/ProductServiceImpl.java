@@ -1,9 +1,11 @@
 package com.moshop.backend.services.impl;
 
+import com.moshop.backend.model.dto.ProductRequestDTO;
 import com.moshop.backend.model.entity.Product;
 import com.moshop.backend.repository.ProductRepository;
 import com.moshop.backend.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,7 +18,10 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public void addProduct(Product product) {
+    public void addProduct(ProductRequestDTO productRequestDTO) {
+        var product = new Product();
+
+        BeanUtils.copyProperties(productRequestDTO, product);
         productRepository.insert(product);
     }
 
@@ -39,18 +44,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(String productId, Product product) {
+    public void updateProduct(String productId, ProductRequestDTO productRequestDTO) {
         var optionalProduct = getProduct(productId);
         var updateProduct = optionalProduct.get();
 
-        updateProduct.setProductName(product.getProductName());
-        updateProduct.setProductPrice(product.getProductPrice());
-        updateProduct.setProductDescription(product.getProductDescription());
-        updateProduct.setProductImage(product.getProductImage());
-        updateProduct.setVariantId(product.getVariantId());
+        updateProduct.setProductName(productRequestDTO.getProductName());
+        updateProduct.setProductPrice(productRequestDTO.getProductPrice());
+        updateProduct.setProductDescription(productRequestDTO.getProductDescription());
+        updateProduct.setProductImage(productRequestDTO.getProductImage());
         updateProduct.setUpdatedDate(LocalDateTime.now());
 
-        productRepository.save(product);
+        productRepository.save(updateProduct);
     }
 
     @Override
