@@ -1,9 +1,7 @@
 package com.moshop.backend.controller;
 
-import com.moshop.backend.model.dto.CustomerRequestDTO;
-import com.moshop.backend.model.entity.Customer;
-import com.moshop.backend.model.entity.LoginRequest;
-import com.moshop.backend.services.CustomerService;
+import com.moshop.backend.model.dto.LoginRequestDTO;
+import com.moshop.backend.model.entity.Customer
 import com.moshop.backend.services.impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,9 +14,9 @@ import java.util.List;
 @RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
 public class CustomerController {
-    private final CustomerService customerService;
+  private final CustomerService customerService;
 
-    @PostMapping
+  @PostMapping
     public ResponseEntity<Void> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
         customerService.createCustomer(customerRequestDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -70,17 +68,16 @@ public class CustomerController {
 
         if (!customers.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(customers);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<Customer> customerLogin(@RequestBody LoginRequest loginRequest) {
-        String email = loginRequest.getCustomerEmail();
-        String password = loginRequest.getCustomerPassword();
-
-        var optionalCustomer = customerService.customerLogin(email, password);
+    @PostMapping("/login")
+    public ResponseEntity<Customer> customerLogin(@RequestBody LoginRequestDTO loginRequestDTO) {
+        var customerEmail = loginRequestDTO.getCustomerEmail();
+        var customerPassword = loginRequestDTO.getCustomerPassword();
+        var optionalCustomer = customerServiceImpl.customerLogin(customerEmail, customerPassword);
 
         if (optionalCustomer.isPresent()) {
             var customer = optionalCustomer.get();
