@@ -1,5 +1,6 @@
 package com.moshop.backend.services;
 
+import com.moshop.backend.model.dto.CartRequestDTO;
 import com.moshop.backend.model.entity.Cart;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface CartService {
      * Creates a new cart for the specified customer.
      *
      * @param customerId The ID of the customer for whom the cart is being created.
-     * @param cart       The Cart object representing the cart to be created.
+     * @param cartRequestDTO The Cart object representing the cart to be created.
      */
-    void createCart(String customerId, Cart cart);
+    void createCart(String customerId, CartRequestDTO cartRequestDTO);
 
     /**
      * Retrieves a list of carts.
