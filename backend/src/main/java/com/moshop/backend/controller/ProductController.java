@@ -20,7 +20,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Void> addProduct(@RequestBody ProductRequestDTO productRequestDTO) {
            productService.addProduct(productRequestDTO);
-           return new ResponseEntity<>(HttpStatus.ACCEPTED);
+           return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -54,7 +54,7 @@ public class ProductController {
     @PutMapping("/{productId}")
     public ResponseEntity<Void> updateProduct(@PathVariable String productId, @RequestBody ProductRequestDTO productRequestDTO) {
         productService.updateProduct(productId, productRequestDTO);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
     @GetMapping("/count")

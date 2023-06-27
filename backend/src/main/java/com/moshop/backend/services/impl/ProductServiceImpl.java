@@ -5,6 +5,7 @@ import com.moshop.backend.model.entity.Product;
 import com.moshop.backend.repository.ProductRepository;
 import com.moshop.backend.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,14 +21,7 @@ public class ProductServiceImpl implements ProductService {
     public void addProduct(ProductRequestDTO productRequestDTO) {
         var product = new Product();
 
-        product.setProductName(productRequestDTO.getProductName());
-        product.setProductPrice(productRequestDTO.getProductPrice());
-        product.setProductDescription(productRequestDTO.getProductDescription());
-        product.setProductImage(productRequestDTO.getProductImage());
-        product.setCreatedDate(LocalDateTime.now());
-        product.setUpdatedDate(LocalDateTime.now());
-        product.setActive(true);
-
+        BeanUtils.copyProperties(productRequestDTO, product);
         productRepository.insert(product);
     }
 
