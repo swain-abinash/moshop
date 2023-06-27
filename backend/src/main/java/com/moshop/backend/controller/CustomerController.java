@@ -1,5 +1,6 @@
 package com.moshop.backend.controller;
 
+import com.moshop.backend.model.dto.LoginRequestDTO;
 import com.moshop.backend.model.entity.Customer;
 import com.moshop.backend.services.impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -72,8 +73,10 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/login/{customerEmail}/{customerPassword}")
-    public ResponseEntity<Customer> customerLogin(@PathVariable String customerEmail, @PathVariable String customerPassword) {
+    @PostMapping("/login")
+    public ResponseEntity<Customer> customerLogin(@RequestBody LoginRequestDTO loginRequestDTO) {
+        var customerEmail = loginRequestDTO.getCustomerEmail();
+        var customerPassword = loginRequestDTO.getCustomerPassword();
         var optionalCustomer = customerServiceImpl.customerLogin(customerEmail, customerPassword);
 
         if (optionalCustomer.isPresent()) {
