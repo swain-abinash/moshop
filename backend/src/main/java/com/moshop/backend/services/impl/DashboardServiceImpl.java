@@ -12,7 +12,6 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public Dashboard countAll() {
-        var dashboard = new Dashboard();
-        return dashboard;
+        return new Dashboard();
     }
 }
