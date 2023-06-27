@@ -1,9 +1,11 @@
 package com.moshop.backend.services.impl;
 
+import com.moshop.backend.model.dto.CartRequestDTO;
 import com.moshop.backend.model.entity.Cart;
 import com.moshop.backend.repository.CartRepository;
 import com.moshop.backend.services.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,12 +17,15 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
 
     @Override
-    public void createCart(String customerId, Cart cart) {
+    public void createCart(String customerId, CartRequestDTO cartRequestDTO) {
+        var cart = new Cart();
         var currentTime = LocalDateTime.now();
 
         cart.setCreatedDate(currentTime);
         cart.setUpdatedDate(currentTime);
         cart.setCustomerId(customerId);
+
+        BeanUtils.copyProperties(cartRequestDTO, cart);
 
         cartRepository.insert(cart);
     }
