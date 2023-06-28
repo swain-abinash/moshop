@@ -1,5 +1,4 @@
-package com.moshop.backend.model.entity.dto;
-
+package com.moshop.backend.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class VariantRequestDTO {
     private String variantName;
     private String variantId;
-    private  String variantDescrption;
+    private  String variantDescription;
 }
+

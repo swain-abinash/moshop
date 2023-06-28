@@ -1,7 +1,7 @@
-package com.moshop.backend.model.entity.dto;
+package com.moshop.backend.model.dto;
 
 public class VariantResponseDTO {
     private String variantName;
     private String variantId;
-    private String variantDescrption;
+    private String variantDescription;
 }
