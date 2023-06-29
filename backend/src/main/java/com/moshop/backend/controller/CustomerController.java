@@ -13,11 +13,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customer")
+@CrossOrigin
 @RequiredArgsConstructor
 public class CustomerController {
-  private final CustomerService customerService;
+    private final CustomerService customerService;
 
-  @PostMapping
+    @PostMapping
     public ResponseEntity<Void> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
         customerService.createCustomer(customerRequestDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -27,22 +28,17 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> getCustomers() {
         var customers = customerService.getCustomers();
 
-        if (customers.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(customers);
-        } else {
+        if (!customers.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(customers);
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(customers);
         }
     }
 
     @GetMapping("/{customerId}")
     public ResponseEntity<Customer> getCustomer(@PathVariable String customerId) {
-        var customer = customerService.getCustomer(customerId);
-
-        if (customer.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(customer.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        var customer = customerService.getCustomer(customerId).orElseThrow();
+        return ResponseEntity.status(HttpStatus.OK).body(customer);
     }
 
     @DeleteMapping("/{customerId}")

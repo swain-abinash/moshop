@@ -1,7 +1,6 @@
 package com.moshop.backend.services;
 
 import com.moshop.backend.model.dto.ProductRequestDTO;
-import com.moshop.backend.model.dto.ProductResponseDTO;
 import com.moshop.backend.model.entity.Product;
 
 import java.util.List;
@@ -9,72 +8,53 @@ import java.util.Optional;
 
 public interface ProductService {
     /**
-     * <h1>Save Product into DB</h1>
-     * <p>This method take product object
-     * as parameter and save it into Database
-     * </p>
+     * <h3>Adds a new product based on the provided ProductRequestDTO.</h3>
      *
-     * @param com.moshop.backend.model.Product
+     * @param productRequestDTO The ProductRequestDTO object containing the details of the product to be added.
      */
     void addProduct(ProductRequestDTO productRequestDTO);
 
     /**
-     * <h1>Getting all products</h1>
-     * <p>This method retrieve all
-     *  products from Database
-     * </p>
+     * Retrieves a list of products.
      *
-     * @param com.moshop.backend.model.Product
+     * @return A list of Product objects representing the available products.
      */
     List<Product> getProducts();
 
     /**
-     * <h1>Getting single product</h1>
-     * <p>This method retrieve single
-     *  product from Database
-     * </p>
+     * Retrieves a product with the specified ID.
      *
-     * @param com.moshop.backend.model.Product
+     * @param productId The ID of the product to retrieve.
+     * @return An Optional containing the Product object if found, or an empty Optional if not found.
      */
     Optional<Product> getProduct(String productId);
 
     /**
-     * <h1>Delete single product</h1>
-     * <p>This method  delete single
-     *  product from Database
-     * </p>
+     * Deletes a product identified by the given product ID.
      *
-     * @param com.moshop.backend.model.Product
+     * @param productId The ID of the product to be deleted.
      */
     void deleteProduct(String productId);
 
     /**
-     * <h1>Update products</h1>
-     * <p>This method update
-     *  products from Database
-     * </p>
+     * Updates an existing product with the provided information.
      *
-     * @param com.moshop.backend.model.Product
+     * @param productId         The ID of the product to be updated.
+     * @param productRequestDTO The updated ProductRequestDTO containing the new information.
      */
     void updateProduct(String productId, ProductRequestDTO productRequestDTO);
 
     /**
-     * <h1>Count all products</h1>
-     * <p>This method count all
-     *  products from Database
-     * </p>
+     * Counts the total number of products.
      *
-     * @param com.moshop.backend.model.Product
+     * @return The total number of products as a long value.
      */
     long countAll();
 
     /**
-     * <h1>Product active or not</h1>
-     * <p>This method tells if the product is
-     *  active or not in the Database
-     * </p>
+     * Retrieves a list of active products.
      *
-     * @param com.moshop.backend.model.Product
+     * @return A list of Product objects representing the active products.
      */
     List<Product> getActiveProducts();
 }

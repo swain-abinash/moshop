@@ -4,6 +4,7 @@ import com.moshop.backend.model.dto.CartRequestDTO;
 import com.moshop.backend.model.entity.Cart;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface CartService {
@@ -36,7 +37,7 @@ public interface CartService {
      * @param cartId The ID of the customer for whom to retrieve the cart.
      * @return An Optional object containing the Cart for the specified cart ID, if found; otherwise an empty Optional.
      */
-    Cart getCart(String cartId);
+    Optional<Cart> getCart(String cartId);
 
     /**
      * Retrieves a cart for the specified cart ID, if available.
@@ -45,7 +46,7 @@ public interface CartService {
      * @param customerId The ID of the customer associated with the cart.
      * @return The Cart object for the specified cart ID and customer ID, if found; otherwise null.
      */
-    Cart getCart(String cartId, String customerId);
+    Optional<Cart> getCart(String cartId, String customerId);
 
     /**
      * Deletes a cart with the specified cart ID.

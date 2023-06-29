@@ -5,6 +5,7 @@ import com.moshop.backend.model.entity.Customer;
 import com.moshop.backend.repository.CustomerRepository;
 import com.moshop.backend.services.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,11 +21,8 @@ public class CustomerServiceImpl implements CustomerService {
     public void createCustomer(CustomerRequestDTO customerRequestDTO) {
         var customer = new Customer();
 
-        customer.setCustomerName(customerRequestDTO.getCustomerName());
-        customer.setCustomerAddress(customerRequestDTO.getCustomerAddress());
-        customer.setCustomerEmail(customerRequestDTO.getCustomerEmail());
-        customer.setCustomerNumber(customerRequestDTO.getCustomerNumber());
-        customer.setCustomerPassword(customerRequestDTO.getCustomerPassword());
+        BeanUtils.copyProperties(customerRequestDTO, customer);
+        
         customer.setCreatedDate(LocalDateTime.now());
         customer.setUpdatedDate(LocalDateTime.now());
         customer.setActive(true);
@@ -56,11 +54,8 @@ public class CustomerServiceImpl implements CustomerService {
     public void updateCustomer(String customerId, CustomerRequestDTO customerRequestDTO) {
         var customer = getCustomer(customerId).orElseThrow();
 
-        customer.setCustomerName(customerRequestDTO.getCustomerName());
-        customer.setCustomerAddress(customerRequestDTO.getCustomerAddress());
-        customer.setCustomerEmail(customerRequestDTO.getCustomerEmail());
-        customer.setCustomerNumber(customerRequestDTO.getCustomerNumber());
-        customer.setCustomerPassword(customerRequestDTO.getCustomerPassword());
+        BeanUtils.copyProperties(customerRequestDTO, customer);
+
         customer.setUpdatedDate(LocalDateTime.now());
 
         customerRepository.save(customer);

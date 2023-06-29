@@ -1,30 +1,60 @@
 package com.moshop.backend.services;
 
+import com.moshop.backend.model.dto.VariantRequestDTO;
 import com.moshop.backend.model.entity.Variant;
 
 import java.util.List;
 import java.util.Optional;
 
-/**
- * <h1>save Variant in to DB</h1>
- * <p>this method take Variant as parameter and save it into database.</p>
- *
- * @Param com.moshop.backend.model.entity.Variant
- */
-
 public interface VariantService {
-    void addVariant(Variant variant);
+    /**
+     * Adds a variant based on the provided VariantRequestDTO.
+     *
+     * @param variantRequestDTO The VariantRequestDTO object containing the details of the variant to be added.
+     */
+    void addVariant(VariantRequestDTO variantRequestDTO);
 
+    /**
+     * Retrieves a list of variants.
+     *
+     * @return A list of Variant objects representing the available variants.
+     */
     List<Variant> getVariants();
 
-    Optional<Variant> getVariant(String id);
+    /**
+     * Retrieves a variant with the specified ID.
+     *
+     * @param variantId The ID of the variant to retrieve.
+     * @return An Optional containing the Variant object if found, or an empty Optional if not found.
+     */
+    Optional<Variant> getVariant(String variantId);
 
-    void deleteVariant(String Variant);
+    /**
+     * Deletes a variant identified by the given variant ID.
+     *
+     * @param variantId The ID of the variant to be deleted.
+     */
+    void deleteVariant(String variantId);
 
-    void updateVariant(String id, Variant variant);
+    /**
+     * Updates an existing variant with the provided information.
+     *
+     * @param variantId      The ID of the variant to be updated.
+     * @param variantRequestDTO The updated Variant object containing the new information.
+     */
+    void updateVariant(String variantId, VariantRequestDTO variantRequestDTO);
 
+    /**
+     * Counts the total number of variants.
+     *
+     * @return The total number of variants as a long value.
+     */
     long countAll();
 
-    List<Variant> getActiveVariant();
-
+    /**
+     * Retrieves a list of active variants.
+     *
+     * @return A list of Variant objects representing the active variants.
+     */
+    List<Variant> getActiveVariants();
 }

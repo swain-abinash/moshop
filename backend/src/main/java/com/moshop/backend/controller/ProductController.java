@@ -3,7 +3,6 @@ package com.moshop.backend.controller;
 import com.moshop.backend.model.dto.ProductRequestDTO;
 import com.moshop.backend.model.entity.Product;
 import com.moshop.backend.services.ProductService;
-import com.moshop.backend.services.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,18 +12,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/product")
+@CrossOrigin
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
 
     @PostMapping
     public ResponseEntity<Void> addProduct(@RequestBody ProductRequestDTO productRequestDTO) {
-           productService.addProduct(productRequestDTO);
-           return new ResponseEntity<>(HttpStatus.CREATED);
+        productService.addProduct(productRequestDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public  ResponseEntity<List<Product>> getProducts() {
+    public ResponseEntity<List<Product>> getProducts() {
         var products = productService.getProducts();
 
         if (products.isEmpty()) {
@@ -36,13 +36,8 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable String productId) {
-        var product = productService.getProduct(productId);
-
-        if (product.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(product.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        var product = productService.getProduct(productId).orElseThrow();
+        return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
     @DeleteMapping("/{productId}")
@@ -54,7 +49,7 @@ public class ProductController {
     @PutMapping("/{productId}")
     public ResponseEntity<Void> updateProduct(@PathVariable String productId, @RequestBody ProductRequestDTO productRequestDTO) {
         productService.updateProduct(productId, productRequestDTO);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/count")
