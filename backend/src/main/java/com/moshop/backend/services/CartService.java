@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CartService {
     /**
-     * Creates a new cart for the specified customer.
+     *<h3> Creates a new cart for the specified customer.</h3>
      *
      * @param customerId The ID of the customer for whom the cart is being created.
      * @param cartRequestDTO The Cart object representing the cart to be created.
@@ -17,14 +17,14 @@ public interface CartService {
     void createCart(String customerId, CartRequestDTO cartRequestDTO);
 
     /**
-     * Retrieves a list of carts.
+     *<h3> Retrieves a list of carts.</h3>
      *
      * @return A list of Cart objects representing the available carts.
      */
     List<Cart> getCarts();
 
     /**
-     * Retrieves a cart for the specified customer ID, if available.
+     * <h3>Retrieves a cart for the specified customer ID, if available.</h3>
      *
      * @param customerId The ID of the customer for whom to retrieve the cart.
      * @return An Optional object containing the Cart for the specified customer ID, if found; otherwise an empty Optional.
@@ -32,7 +32,7 @@ public interface CartService {
     List<Cart> getCarts(String customerId);
 
     /**
-     * Retrieves a cart for the specified customer ID, if available.
+     * <h3>Retrieves a cart for the specified customer ID, if available.</h3>
      *
      * @param cartId The ID of the customer for whom to retrieve the cart.
      * @return An Optional object containing the Cart for the specified cart ID, if found; otherwise an empty Optional.
@@ -40,7 +40,7 @@ public interface CartService {
     Optional<Cart> getCart(String cartId);
 
     /**
-     * Retrieves a cart for the specified cart ID, if available.
+     *<h3> Retrieves a cart for the specified cart ID, if available.</h3>
      *
      * @param cartId     The ID of the cart to retrieve.
      * @param customerId The ID of the customer associated with the cart.
@@ -49,21 +49,21 @@ public interface CartService {
     Optional<Cart> getCart(String cartId, String customerId);
 
     /**
-     * Deletes a cart with the specified cart ID.
+     *<h3> Deletes a cart with the specified cart ID.</h3>
      *
      * @param cartId The ID of the cart to delete.
      */
     void deleteCart(String cartId);
 
     /**
-     * Counts the total number of carts.
+     * <h3>Counts the total number of carts.</h3>
      *
      * @return The total number of carts.
      */
     long countAll();
 
     /**
-     * Retrieves the count of carts for the specified customer ID, if available.
+     * <h3>Retrieves the count of carts for the specified customer ID, if available.<h3>
      *
      * @param customerId The ID of the customer for whom to retrieve the count of carts.
      * @return An Optional object containing the count of carts for the specified customer ID, if found; otherwise an empty Optional.
