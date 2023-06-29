@@ -15,14 +15,14 @@ public interface ProductService {
     void addProduct(ProductRequestDTO productRequestDTO);
 
     /**
-     * Retrieves a list of products.
+     * <h3>Retrieves a list of products.</h3>
      *
      * @return A list of Product objects representing the available products.
      */
     List<Product> getProducts();
 
     /**
-     * Retrieves a product with the specified ID.
+     * <h3>Retrieves a product with the specified ID.</h3>
      *
      * @param productId The ID of the product to retrieve.
      * @return An Optional containing the Product object if found, or an empty Optional if not found.
@@ -30,14 +30,14 @@ public interface ProductService {
     Optional<Product> getProduct(String productId);
 
     /**
-     * Deletes a product identified by the given product ID.
+     * <h3>Deletes a product identified by the given product ID.</h3>
      *
      * @param productId The ID of the product to be deleted.
      */
     void deleteProduct(String productId);
 
     /**
-     * Updates an existing product with the provided information.
+     * <h3>Updates an existing product with the provided information.</h3>
      *
      * @param productId         The ID of the product to be updated.
      * @param productRequestDTO The updated ProductRequestDTO containing the new information.
@@ -45,14 +45,14 @@ public interface ProductService {
     void updateProduct(String productId, ProductRequestDTO productRequestDTO);
 
     /**
-     * Counts the total number of products.
+     *<h3> Counts the total number of products.</h3>
      *
      * @return The total number of products as a long value.
      */
     long countAll();
 
     /**
-     * Retrieves a list of active products.
+     * <h3>Retrieves a list of active products.</h3>
      *
      * @return A list of Product objects representing the active products.
      */
