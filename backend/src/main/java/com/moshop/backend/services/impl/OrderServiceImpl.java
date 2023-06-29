@@ -19,10 +19,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void createOrder(String customerId, OrderRequestDTO orderRequestDTO) {
         var order = new Order();
+
         BeanUtils.copyProperties(orderRequestDTO, order);
+
         order.setCustomerId(customerId);
         order.setCreatedDate(LocalDateTime.now());
-        
+
         orderRepository.insert(order);
     }
 
