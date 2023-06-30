@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VariantRequestDTO {
     private String variantName;
-    private String variantId;
+    private String variantImage;
     private  String variantDescription;
 }
 

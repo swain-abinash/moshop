@@ -8,22 +8,22 @@ import java.util.List;
 public interface OrderService {
 
     /**
-     * Creates a new order for the specified customer.
+     * <h3>Creates a new order for the specified customer.</h3>
      *
      * @param customerId The unique identifier of the customer.
-     * @param order      The order to be created.
+     * @param orderRequestDTO     The order to be created.
      */
     void createOrder(String customerId, OrderRequestDTO orderRequestDTO);
 
     /**
-     * Retrieves a list of all orders in the system.
+     * <h3>Retrieves a list of all orders in the system.</h3>
      *
      * @return A list of all orders.
      */
     List<Order> getOrders();
 
     /**
-     * Retrieves a list of orders for the specified customer.
+     *<h3> Retrieves a list of orders for the specified customer.</h3>
      *
      * @param customerId The unique identifier of the customer.
      * @return A list of orders for the specified customer.
@@ -31,7 +31,7 @@ public interface OrderService {
     List<Order> getOrders(String customerId);
 
     /**
-     * Retrieves the order with the specified order ID for the specified customer.
+     * <h3>Retrieves the order with the specified order ID for the specified customer.</h3>
      *
      * @param orderId    The unique identifier of the order.
      * @param customerId The unique identifier of the customer.
@@ -40,7 +40,7 @@ public interface OrderService {
     Order getOrder(String orderId, String customerId);
 
     /**
-     * Retrieves the order with the specified order ID.
+     * <h3>Retrieves the order with the specified order ID.</h3>
      *
      * @param orderId The unique identifier of the order.
      * @return The order with the specified order ID, or null if not found.
@@ -48,14 +48,14 @@ public interface OrderService {
     Order getOrder(String orderId);
 
     /**
-     * Counts the total number of orders in the system.
+     * <h3>Counts the total number of orders in the system.</h3>
      *
      * @return The total number of orders.
      */
     long countAll();
 
     /**
-     * Counts the total number of orders for the specified customer.
+     * <h3>Counts the total number of orders for the specified customer.</h3>
      *
      * @param customerId The unique identifier of the customer.
      * @return The total number of orders for the specified customer.

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,13 +20,13 @@ public class CartServiceImpl implements CartService {
     @Override
     public void createCart(String customerId, CartRequestDTO cartRequestDTO) {
         var cart = new Cart();
-        var currentTime = LocalDateTime.now();
-
-        cart.setCreatedDate(currentTime);
-        cart.setUpdatedDate(currentTime);
-        cart.setCustomerId(customerId);
 
         BeanUtils.copyProperties(cartRequestDTO, cart);
+
+        cart.setCreatedDate(LocalDateTime.now());
+        cart.setUpdatedDate(LocalDateTime.now());
+        cart.setActive(true);
+        cart.setCustomerId(customerId);
 
         cartRepository.insert(cart);
     }
@@ -41,13 +42,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart getCart(String cartId) {
-        return cartRepository.findById(cartId).orElse(null);
+    public Optional<Cart> getCart(String cartId) {
+        return cartRepository.findById(cartId);
     }
 
     @Override
-    public Cart getCart(String cartId, String customerId) {
-        return cartRepository.findByCartIdAndCustomerId(cartId, customerId);
+    public Optional<Cart> getCart(String cartId, String customerId) {
+        return Optional.ofNullable(cartRepository.findByCartIdAndCustomerId(cartId, customerId));
     }
 
     @Override

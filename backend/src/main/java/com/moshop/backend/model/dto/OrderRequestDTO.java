@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OrderRequestDTO {
     private String productId;
-    private String customerId;
 }

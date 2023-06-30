@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,7 +19,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void createOrder(String customerId, OrderRequestDTO orderRequestDTO) {
         var order = new Order();
+
         BeanUtils.copyProperties(orderRequestDTO, order);
+
+        order.setCustomerId(customerId);
+        order.setCreatedDate(LocalDateTime.now());
+
         orderRepository.insert(order);
     }
 

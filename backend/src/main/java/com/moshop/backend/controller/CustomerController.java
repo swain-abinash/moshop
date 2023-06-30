@@ -1,6 +1,7 @@
 package com.moshop.backend.controller;
 
 import com.moshop.backend.model.dto.CustomerRequestDTO;
+import com.moshop.backend.model.dto.CustomerResponseDTO;
 import com.moshop.backend.model.dto.LoginRequestDTO;
 import com.moshop.backend.model.entity.Customer;
 import com.moshop.backend.services.CustomerService;
@@ -13,36 +14,32 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customer")
+@CrossOrigin
 @RequiredArgsConstructor
 public class CustomerController {
-  private final CustomerService customerService;
+    private final CustomerService customerService;
 
-  @PostMapping
+    @PostMapping
     public ResponseEntity<Void> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
         customerService.createCustomer(customerRequestDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getCustomers() {
+    public ResponseEntity<List<CustomerResponseDTO>> getCustomers() {
         var customers = customerService.getCustomers();
 
-        if (customers.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(customers);
-        } else {
+        if (!customers.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(customers);
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(customers);
         }
     }
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable String customerId) {
-        var customer = customerService.getCustomer(customerId);
-
-        if (customer.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(customer.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<CustomerResponseDTO> getCustomer(@PathVariable String customerId) {
+        var customer = customerService.getCustomer(customerId).orElseThrow();
+        return ResponseEntity.status(HttpStatus.OK).body(customer);
     }
 
     @DeleteMapping("/{customerId}")
@@ -64,7 +61,7 @@ public class CustomerController {
     }
 
     @GetMapping("/active")
-    public ResponseEntity<List<Customer>> getActiveCustomer() {
+    public ResponseEntity<List<CustomerResponseDTO>> getActiveCustomer() {
         var customers = customerService.getActiveCustomer();
 
         if (!customers.isEmpty()) {
@@ -75,13 +72,13 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Customer> customerLogin(@RequestBody LoginRequestDTO loginRequestDTO) {
+    public ResponseEntity<CustomerResponseDTO> customerLogin(@RequestBody LoginRequestDTO loginRequestDTO) {
         var customerEmail = loginRequestDTO.getCustomerEmail();
         var customerPassword = loginRequestDTO.getCustomerPassword();
         var optionalCustomer = customerService.customerLogin(customerEmail, customerPassword);
 
         if (optionalCustomer.isPresent()) {
-            var customer = optionalCustomer.get();
+            var customer = optionalCustomer.get().orElseThrow();
             return ResponseEntity.status(HttpStatus.OK).body(customer);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

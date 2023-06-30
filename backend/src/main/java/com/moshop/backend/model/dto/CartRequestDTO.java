@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CartRequestDTO {
-    private String customerId;
     private String productId;
 }

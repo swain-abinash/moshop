@@ -22,6 +22,11 @@ public class ProductServiceImpl implements ProductService {
         var product = new Product();
 
         BeanUtils.copyProperties(productRequestDTO, product);
+
+        product.setCreatedDate(LocalDateTime.now());
+        product.setUpdatedDate(LocalDateTime.now());
+        product.setActive(true);
+
         productRepository.insert(product);
     }
 
@@ -38,23 +43,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(String productId) {
         var product = getProduct(productId).orElseThrow();
+
         product.setActive(false);
+        product.setUpdatedDate(LocalDateTime.now());
 
         productRepository.save(product);
     }
 
     @Override
     public void updateProduct(String productId, ProductRequestDTO productRequestDTO) {
-        var optionalProduct = getProduct(productId);
-        var updateProduct = optionalProduct.get();
+        var product = getProduct(productId).orElseThrow();
 
-        updateProduct.setProductName(productRequestDTO.getProductName());
-        updateProduct.setProductPrice(productRequestDTO.getProductPrice());
-        updateProduct.setProductDescription(productRequestDTO.getProductDescription());
-        updateProduct.setProductImage(productRequestDTO.getProductImage());
-        updateProduct.setUpdatedDate(LocalDateTime.now());
+        BeanUtils.copyProperties(productRequestDTO, product);
+        product.setUpdatedDate(LocalDateTime.now());
 
-        productRepository.save(updateProduct);
+        productRepository.save(product);
     }
 
     @Override
