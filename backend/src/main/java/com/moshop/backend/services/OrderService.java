@@ -11,7 +11,7 @@ public interface OrderService {
      * <h3>Creates a new order for the specified customer.</h3>
      *
      * @param customerId The unique identifier of the customer.
-     * @param order      The order to be created.
+     * @param orderRequestDTO     The order to be created.
      */
     void createOrder(String customerId, OrderRequestDTO orderRequestDTO);
 
